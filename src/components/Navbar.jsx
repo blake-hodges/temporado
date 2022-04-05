@@ -6,8 +6,8 @@ function Navbar() {
     
 
     return (
-        <div className="flex flex-col md:flex-row items-center">
-            <div className="hidden md:block">
+        <div className="w-full flex flex-col md:flex-row items-center absolute z-10 text-white bg-black bg-opacity-20 h-20 px-4">
+            <div className="hidden md:block pb-2">
                 <h1>Temporado</h1>
             </div>
             <div className="hidden md:flex">
