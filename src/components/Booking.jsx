@@ -3,8 +3,8 @@ import { ChatIcon, PhoneIcon } from '@heroicons/react/outline/';
 
 function Booking() {
   return (
-    <div className="max-w-[1240px] mx-auto grid lg:grid-cols-3 px-4 py-16">
-        <div className="lg:col-span-2 justify-evenly p-5">
+    <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 px-4 py-16">
+        <div className="md:col-span-2 justify-evenly p-5">
             <div>
                 <h2>Lorem ipsum dolor sit amet consectetur adipisicing.</h2>
                 <p className="py-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor at eos mollitia, numquam consequuntur dolores temporibus laboriosam, vitae nemo aspernatur cum, magnam blanditiis facere facilis aliquid exercitationem harum incidunt praesentium. Quam fugit facilis quia molestias, consequatur aut dicta tempora magni asperiores, minus omnis expedita quis rerum fuga provident! Itaque, ex!</p>
@@ -27,7 +27,7 @@ function Booking() {
             </div>
         </div>
 
-        <div className="lg:col-span-1 bg-yellow-500">
+        <div className="md:col-span-1 bg-blue-500">
             <div className="text-center border">
                 <p className="pt-2">Check our available properties.</p>
                 <p className="py-2 text-gray-200">10% OFF MONTH-LONG STAYS</p>
