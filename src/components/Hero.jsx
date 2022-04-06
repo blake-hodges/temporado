@@ -1,11 +1,12 @@
 import React from 'react';
-import beachVid from '../assets/beachVid.mp4';
+import frenchPolynesia from '../assets/french-polynesia.jpg';
 import { SearchIcon } from '@heroicons/react/solid';
 
 function Hero() {
+
   return (
     <div className="w-full h-screen relative">
-        <video src={beachVid} className="w-full h-full object-cover -z-10" />
+        <img src={frenchPolynesia} className="w-full h-full object-cover -z-10" />
         <div className="w-full h-full absolute top-0 left-0 bg-gray-900/30"></div>
         <div className="absolute top-0 w-full h-full flex flex-col justify-center text-center text-white p-4">
             <h1>Find your next adventure!</h1>
