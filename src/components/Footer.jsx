@@ -12,11 +12,11 @@ const Footer = () => {
         <div className='w-full bg-gray-100 py-1'>
             <div className='max-w-[1240px] mx-auto flex flex-row justify-between px-4'>
                 <div className='flex justify-between'>
-                    <ul className='text-left lg:flex'>
-                        <li className="py-6">Home</li>
-                        <li className="py-6">Destinations</li>
-                        <li className="py-6">Book a Trip</li>
-                        <li className="py-6">Become a Host</li>
+                    <ul className='text-left md:flex'>
+                        <li className="py-1 my-auto">Home</li>
+                        <li className="py-1 my-auto">Destinations</li>
+                        <li className="py-1 my-auto">Book a Trip</li>
+                        <li className="py-1 my-auto">Become a Host</li>
                     </ul>
                 </div>
                 <div className='sm:flex text-center justify-between items-center'>
