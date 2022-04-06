@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
+import Logo from './Logo';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -7,10 +8,10 @@ function Navbar() {
 
     return (
         <div className="w-full flex flex-col md:flex-row md:items-center absolute z-10 text-white h-20 px-4">
-            <div className="hidden md:block pb-2">
-                <h1>Temporado</h1>
+            <div className="hidden md:block">
+                <Logo />
             </div>
-            <div className="hidden md:flex">
+            <div className="hidden md:flex pl-10">
                 <li className="">Home</li>
                 <li className="">Destinations</li>
                 <li className="">Book a Trip</li>

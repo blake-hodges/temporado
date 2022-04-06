@@ -9,13 +9,30 @@ import Booking from './components/Booking';
 import axios from 'axios';
 
 function App() {
-    const [data, setData] = useState(['']);
+    const [data, setData] = useState({
+        
+    });
     const [isFetching, setIsFetching] = useState(true);
     useEffect(() => {
         axios.get("/listings")
         .then(res => {
-            setIsFetching(false)
-            setData(res.data);
+            const destinations = res.data.destinations;
+            const myObj = {
+                destinationsData: [],
+                cardsGalleryData: [],
+                imageCarouselData: []
+            }
+            for (let i = 0; i < res.data.destinations.length;i++) {
+                if (i < 5) {
+                    myObj.destinationsData.push(destinations[i]);
+                } else if (i >= 5 && i < 11) {
+                    myObj.cardsGalleryData.push(destinations[i]);
+                } else {
+                    myObj.imageCarouselData.push(destinations[i]);
+                }
+            }
+            setData(myObj);
+            setIsFetching(false);
         })
     }, [])
 
@@ -26,10 +43,10 @@ function App() {
             <>
                 <Navbar />
                 <Hero />
-                <Destinations data={data}  />
+                <Destinations data={data.destinationsData}  />
                 <Booking />
-                <CardsGallery data={data} />
-                <ImageCarousel data={data} />
+                <CardsGallery data={data.cardsGalleryData} />
+                <ImageCarousel data={data.imageCarouselData} />
                 <Footer />
             </>
         )

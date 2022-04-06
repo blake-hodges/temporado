@@ -9,7 +9,7 @@ import Maldives3 from '../assets/maldives3.jpg';
 import KeyWest from '../assets/keywest.jpg';
 
 function CardsGallery({data}) {
-    const CardsList = data.destinations.map((item, index) => (
+    const CardsList = data.map((item, index) => (
         <Card background={item.img} caption={item.destination} key={index} />
     ))
     return (

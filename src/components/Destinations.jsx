@@ -8,7 +8,7 @@ import KeyWest from '../assets/keywest.jpg';
 
 function Destinations({data}) {
     
-        const destinationsList = data.destinations.map((item, index) => {
+        const destinationsList = data.map((item, index) => {
             if (index === 0) {
                 return <img className="w-full h-full object-cover col-span-2 md:col-span-3 row-span-2" src={item.img} alt={item.destination} key={index} />
             } else {
