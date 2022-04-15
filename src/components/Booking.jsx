@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChatIcon, PhoneIcon } from '@heroicons/react/outline/';
 
 function Booking() {
@@ -36,10 +37,15 @@ function Booking() {
                 <div className="flex flex-col my-2">
                     <label>Destination</label>
                     <select className="border rounded-md p-2">
-                        <option>Bora Bora</option>
-                        <option>Thailand</option>
-                        <option>Iceland</option>
-                        <option>Australia</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Portugal" selected>Portugal</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="United States">United States</option>
                     </select>
                 </div>
                 <div className="flex flex-col my-4">
@@ -50,7 +56,7 @@ function Booking() {
                     <label>Check-Out</label>
                     <input className="p-2 border rounded-md" type="date" />
                 </div>
-                <button className="w-full my-4">Check Availability</button>
+                <Link to={"/properties"} ><button className="w-full my-4">Check Availability</button></Link>
             </form>
         </div>
     </div>
