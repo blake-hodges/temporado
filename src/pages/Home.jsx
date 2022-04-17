@@ -19,7 +19,8 @@ function Home() {
     }, []);
 
     return (
-        <>
+        <>  
+            <Hero />
             <Destinations data={db} />
             <Booking />
         </>

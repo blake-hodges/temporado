@@ -36,13 +36,13 @@ function Booking() {
             <form className="w-full px-2">
                 <div className="flex flex-col my-2">
                     <label>Destination</label>
-                    <select className="border rounded-md p-2">
+                    <select className="border rounded-md p-2" defaultValue="Portugal">
                         <option value="Australia">Australia</option>
                         <option value="Brazil">Brazil</option>
                         <option value="Canada">Canada</option>
                         <option value="China">China</option>
                         <option value="Hong Kong">Hong Kong</option>
-                        <option value="Portugal" selected>Portugal</option>
+                        <option value="Portugal">Portugal</option>
                         <option value="Spain">Spain</option>
                         <option value="Turkey">Turkey</option>
                         <option value="United States">United States</option>

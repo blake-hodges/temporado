@@ -28,7 +28,6 @@ function Layout() {
     return (
         <>
             <Navbar />
-            <Hero />
             <Outlet />
             <Footer />
         </>

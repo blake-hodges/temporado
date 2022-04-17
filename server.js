@@ -18,30 +18,33 @@ MongoClient.connect(url)
 
     app.get("/destinations", (req, res) => {
         let country = req.query.country;
-        console.log(country);
-        let query = { "address.country" : country }
-        db.collection("listingsAndReviews").find(query).limit(10).toArray()
+        let market = req.query.market;
+        console.log(country, market);
+        let query;
+
+        if (market === "All") {
+            query = { "address.country" : country }
+        } else if (market === "Other" && country === "United States") {
+            query = { "address.country" : country, "address.market" : "Other (Domestic)" }
+        } else if (market === "Other") {
+            query = { "address.country" : country, "address.market" : "Other (International)" }
+        } else {
+            query = { "address.country" : country, "address.market" : market }
+        }
+        db.collection("listingsAndReviews").find(query).limit(100).toArray()
             .then(results => {
-                console.log(results.data);
+                console.log(results);
                 res.json(results);
             })  
             .catch(error => console.error(error))
     })
 
-    app.get("/update", (req, res) => {
-        const filter = {"address.country" : "China"};
-        const updateDoc = {
-            $set: { 
-                "address.market" : "Shenzhen"
-            }
-        }
-        db.collection("listingsAndReviews").updateMany(filter, updateDoc);
-    })
 
     app.get("/data", (req, res) => {
         
         res.send(JSON.stringify(dbFile));
     });
+
 
 
 })
