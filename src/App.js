@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Hero from './components/Hero';
 import Home from './pages/Home';
 import Properties from './pages/Properties';
+import Property from './pages/Property';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="/properties" element={<Properties />} />
+                    <Route path="/property" element={<Property />} />
                 </Route>
             </Routes>
         </>

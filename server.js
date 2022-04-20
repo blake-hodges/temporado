@@ -31,7 +31,7 @@ MongoClient.connect(url)
         } else {
             query = { "address.country" : country, "address.market" : market }
         }
-        db.collection("listingsAndReviews").find(query).limit(100).toArray()
+        db.collection("listingsAndReviews").find(query).limit(5).toArray()
             .then(results => {
                 console.log(results);
                 res.json(results);

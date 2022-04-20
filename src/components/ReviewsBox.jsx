@@ -8,7 +8,7 @@ function ReviewsBox(props) {
     }
     function getRating(val) {
         if (val) {
-            return convertToStarRating(props.rating);
+            return convertToStarRating(val);
         } else {
             // find random number between 70 and 99 
             return convertToStarRating((Math.random() * 30) + 70 );

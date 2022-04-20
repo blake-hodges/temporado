@@ -7,21 +7,11 @@ import Booking from '../components/Booking';
 
 
 function Home() {
-    const [db, setDB] = useState([]);
-
-    useEffect(() => {
-        fetch('/data')
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setDB(data.destinations);
-            });
-    }, []);
 
     return (
         <>  
             <Hero />
-            <Destinations data={db} />
+            <Destinations />
             <Booking />
         </>
 

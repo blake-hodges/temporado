@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
 import Header from '../components/Header';
 import axios from 'axios';
 
-function Properties() {
+function Properties(props) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams.get("countryName"));
+    const initialCountry = searchParams.get("countryName");
     const marketsData = {
         "Australia": ["All", "Sydney", "Other"],
         "Brazil": ["All", "Rio De Janeiro", "Other" ],
@@ -25,16 +28,16 @@ function Properties() {
           ]
     }
     const [listings, setListings] = useState(undefined);
-    const [country, setCountry] = useState("Portugal");
+    const [country, setCountry] = useState(initialCountry);
     const [market, setMarket] = useState("All");
     const [markets, setMarkets] = useState(["All", "Porto", "Other"]);
 
-    // useEffect(() => {
-    //     axios.get("/destinations?country=Portugal&market=All").then((res) => {
-    //         console.log(res.data);
-    //         setListings(res.data);
-    //     });
-    // }, [])
+    useEffect(() => {
+        axios.get(`/destinations?country=${initialCountry}&market=All`).then((res) => {
+            console.log(res.data);
+            setListings(res.data);
+        });
+    }, [])
 
 
     function handleSubmit(e) {
@@ -72,7 +75,11 @@ function Properties() {
                     <form className="w-full px-2" onSubmit={handleSubmit}>
                         <div className="flex flex-col my-2">
                             <label>Country</label>
-                            <select className="border rounded-md p-2" onChange={handleCountryChange} defaultValue="Portugal">
+                            <select
+                                className="border rounded-md p-2"
+                                onChange={handleCountryChange}
+                                value={country}
+                            >
                                 <option value="Australia">Australia</option>
                                 <option value="Brazil">Brazil</option>
                                 <option value="Canada">Canada</option>
