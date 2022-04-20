@@ -6,61 +6,76 @@ import axios from 'axios';
 
 function Properties(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams.get("countryName"));
+    const [isLoading, setIsLoading] = useState(true);
     const initialCountry = searchParams.get("countryName");
     const marketsData = {
-        "Australia": ["All", "Sydney", "Other"],
-        "Brazil": ["All", "Rio De Janeiro", "Other" ],
-        "Canada": ["All", "Montreal", "Other"],
+        "Australia": ["All", "Sydney"],
+        "Brazil": ["All", "Rio De Janeiro", "Barra de Guaratiba" ],
+        "Canada": ["All", "Montreal"],
         "China": ["All"],
         "Hong Kong": ["All"],
-        "Portugal": ["All", "Aveiro", "Porto", "Other"],
-        "Spain": ["All", "Barcelona", "Other"],
-        "Turkey": ["All", "Istanbul", "Other"],
+        "Portugal": ["Aveiro", "Porto"],
+        "Spain": ["All", "Barcelona"],
+        "Turkey": ["All", "Istanbul", "Sile"],
         "United States": [
             "All",
             "Kauai",
             "Maui",
+            "Molokai",
             "New York",
             "Oahu",
-            "The Big Island",
-            "Other"
+            "The Big Island"
           ]
     }
     const [listings, setListings] = useState(undefined);
-    const [country, setCountry] = useState(initialCountry);
-    const [market, setMarket] = useState("All");
-    const [markets, setMarkets] = useState(["All", "Porto", "Other"]);
+    const [markets, setMarkets] = useState(marketsData[initialCountry]);
 
     useEffect(() => {
         axios.get(`/destinations?country=${initialCountry}&market=All`).then((res) => {
-            console.log(res.data);
             setListings(res.data);
+            setIsLoading(false);
         });
     }, [])
 
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        let formattedStr = country.replace(" ", "%20");
-        let url = `/destinations?country=${formattedStr}&market=${market}`;
+
+
+    function handleChange(e) {
+        if (e.target.name === "countrySelect") {
+            const country = e.target.value;
+            setMarkets(marketsData[country]);
+            const marketSelect = document.querySelector('select[name="marketSelect"]');
+            marketSelect.value = "All";
+            fetchData(country)
+        }
+        if (e.target.name === "marketSelect") {
+            const market = e.target.value;
+            const countrySelect = document.querySelector('select[name="countrySelect"]');
+            const country = countrySelect.value;
+            fetchData(country, market);
+            
+        }
+
+    }
+
+
+    function fetchData(country, market = "All") {
+        const formattedCountry = formatString(country);
+        const formattedMarket  = formatString(market);
+        let url = `/destinations?country=${formattedCountry}&market=${formattedMarket}`;
         axios.get(url).then((res) => {
             console.log(res.data);
             setListings(res.data);
         })
-
     }
 
-    function handleCountryChange(e) {
-        let country = e.target.value;
-        setCountry(country);
-        setMarkets(marketsData[country]);
+    function formatString(str) {
+        let formattedStr = str.replace(" ", "%20");
+        return formattedStr;
     }
 
-    function handleMarketChange(e) {
-        let market = e.target.value;
-        setMarket(market);
-    }
+
+
 
 
 
@@ -68,17 +83,18 @@ function Properties(props) {
         <>
             <Header />
             <div className="w-[960px] my-4 p-10 mx-auto">
-                <div className="w-[400px] mx-auto bg-blue-500 mb-[20px]">
+                <div className="w-[400px] mx-auto bg-blue-500 pb-4">
                     <div className="text-center border">
                         <p className="py-4">Change Destination</p>
                     </div>
-                    <form className="w-full px-2" onSubmit={handleSubmit}>
+                    <form className="w-full px-2" name="myForm">
                         <div className="flex flex-col my-2">
                             <label>Country</label>
                             <select
                                 className="border rounded-md p-2"
-                                onChange={handleCountryChange}
-                                value={country}
+                                defaultValue={initialCountry}
+                                name="countrySelect"
+                                onChange={handleChange}
                             >
                                 <option value="Australia">Australia</option>
                                 <option value="Brazil">Brazil</option>
@@ -93,27 +109,36 @@ function Properties(props) {
                         </div>
                         <div className="flex flex-col my-2">
                             <label>City/Area</label>
-                            <select className="border rounded-md p-2" defaultValue="All" onChange={handleMarketChange}>
+                            <select
+                                className="border rounded-md p-2"
+                                defaultValue="All"
+                                name="marketSelect"
+                                onChange={handleChange}
+                            >
                                 {markets.map((item, index) => {
                                     return <option value={item} key={index}>{item}</option>
                                 })}
                             </select>
-                    </div>
-                        <button className="w-full my-4">See Properties</button>
+                        </div>
+                        {/* <button className="w-full my-4">See Properties</button> */}
                     </form>
                 </div>
-                <div>
+                <div className="my-10">
                     {listings ? listings.map((item, index) => (
                         <PropertyCard
                             key={index}
                             data={item}
                         />
                     ))
-                        : <p>Loading...</p>}
+                        : <Loading />}
                 </div>
             </div>
         </>
     )
+}
+
+function Loading() {
+    return <p>Loading...</p>
 }
 
 export default Properties
