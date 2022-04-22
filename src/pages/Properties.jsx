@@ -7,6 +7,7 @@ import axios from 'axios';
 function Properties(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [limit, setLimit] = useState(10);
     const initialCountry = searchParams.get("countryName");
     const marketsData = {
         "Australia": ["All", "Sydney"],
@@ -60,12 +61,15 @@ function Properties(props) {
 
 
     function fetchData(country, market = "All") {
+        setIsLoading(true);
+        setLimit(10);
         const formattedCountry = formatString(country);
         const formattedMarket  = formatString(market);
         let url = `/destinations?country=${formattedCountry}&market=${formattedMarket}`;
         axios.get(url).then((res) => {
             console.log(res.data);
             setListings(res.data);
+            setIsLoading(false);
         })
     }
 
@@ -74,10 +78,13 @@ function Properties(props) {
         return formattedStr;
     }
 
-
-
-
-
+    function SeeMore() {
+        if (listings.length <= limit) {
+            return <p>that's all the properties</p>
+        } else {
+            return <button className="text-black" onClick={() => setLimit(limit + 10)}>See more</button>
+        }
+    }
 
     return (
         <>
@@ -124,14 +131,17 @@ function Properties(props) {
                     </form>
                 </div>
                 <div className="my-10">
-                    {listings ? listings.map((item, index) => (
-                        <PropertyCard
+                    { !isLoading ? listings.map((item, index) => {
+                        if (index < limit) {
+                        return ( <PropertyCard
                             key={index}
                             data={item}
-                        />
-                    ))
+                        />)
+                        }
+                    })
                         : <Loading />}
                 </div>
+                <SeeMore />
             </div>
         </>
     )
@@ -140,5 +150,7 @@ function Properties(props) {
 function Loading() {
     return <p>Loading...</p>
 }
+
+
 
 export default Properties

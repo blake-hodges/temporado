@@ -24,12 +24,10 @@ MongoClient.connect(url)
 
         if (market === "All") {
             query = { "address.country" : country }
-        } else if (market === "Other" && country === "United States") {
-            query = { "address.country" : country, "address.market" : "Other (Domestic)" }
         } else {
             query = { "address.country" : country, "address.market" : market }
         }
-        db.collection("listingsAndReviews").find(query).limit(5).toArray()
+        db.collection("listingsAndReviews").find(query).limit(100).toArray()
             .then(results => {
                 res.json(results);
             })  
