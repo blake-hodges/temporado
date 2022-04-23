@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ReviewsBox from './ReviewsBox';
 import currencyConverter from '../utils/currencyConverter.js';
 import Amenities from '../components/Amenities';
@@ -12,7 +13,16 @@ function PropertyCard(props) {
             <div className="flex flex-col w-full justify-between">
                 <div>
                     <p>{ `${props.data.room_type} in ${props.data.address.market}` }</p>
-                    <h3 className="font-normal">{props.data.name}</h3>
+                    <Link to={`/property/${props.data._id}`} state={
+                        {
+                            data: props.data,
+                            checkIn: props.checkIn,
+                            checkOut: props.checkOut
+
+                        }
+                    }>
+                        <h3 className="font-normal">{props.data.name}</h3>
+                    </Link>
                     <Amenities
                         beds={props.data.beds}
                         bathrooms={props.data.bathrooms.$numberDecimal}

@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { MongoClient } = require('mongodb');
+const { MongoClient, ConnectionClosedEvent } = require('mongodb');
 const dbFile = require("./db.json");
 
 const app = express();
 
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const url = 'mongodb+srv://tbhodges:i4XlRfTEjl9hayD7@cluster0.0fhve.mongodb.net/sample_airbnb?retryWrites=true&w=majority';
@@ -27,7 +28,7 @@ MongoClient.connect(url)
         } else {
             query = { "address.country" : country, "address.market" : market }
         }
-        db.collection("listingsAndReviews").find(query).limit(100).toArray()
+        db.collection("listingsAndReviews").find(query).limit(10).toArray()
             .then(results => {
                 res.json(results);
             })  
@@ -38,6 +39,19 @@ MongoClient.connect(url)
     app.get("/data", (req, res) => {
         
         res.send(JSON.stringify(dbFile));
+    });
+
+    app.post("/book", (req, res) => {
+        console.log(req.body);
+        db.collection("bookings").insertOne(req.body)
+        .then(result => {
+                console.log(result);
+                res.send("great success")
+        })
+        .catch(error => {
+            console.error(error)
+            res.send("server error");
+        })
     });
 
 

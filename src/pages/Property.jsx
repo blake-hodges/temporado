@@ -1,4 +1,6 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import data from '../assets/data.js';
 import ReviewsBox from '../components/ReviewsBox';
@@ -6,11 +8,44 @@ import Amenities from '../components/Amenities';
 
 function Property() {
 
+    const location = useLocation();
+    const { data, checkIn, checkOut } = location.state;
+    console.log(checkIn, checkOut);
+    const [ checkInDate, setCheckInDate ] = useState(checkIn);
+    const [ checkOutDate, setCheckOutDate ] = useState(checkOut);
+
 
     function convertDate(date) {
         let dateString = new Date(date);
         return dateString.toDateString();
     }
+
+    function handleChange(e) {
+        console.log(e.target.name);
+        if (e.target.name === "checkInInput") {
+            setCheckInDate(e.target.value);
+        } else if (e.target.name === "checkOutInput") {
+            setCheckOutDate(e.target.value);
+        }
+
+    }
+
+    function sendBookingInfo(e) {
+        e.preventDefault();
+        let info = {
+            checkIn: checkInDate,
+            checkOut: checkOutDate
+        }
+        console.log(info);
+        axios.post('/book', info )
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <>
             <Header />
@@ -44,13 +79,13 @@ function Property() {
                         <form className="px-2">
                             <div className="flex flex-col my-4">
                                 <label>Check-In</label>
-                                <input className="p-2 border rounded-md" type="date" />
+                                <input className="p-2 border rounded-md" type="date" defaultValue={checkIn} name="checkInInput" onChange={handleChange} />
                             </div>
                             <div className="flex flex-col my-4">
                                 <label>Check-Out</label>
-                                <input className="p-2 border rounded-md" type="date" />
+                                <input className="p-2 border rounded-md" type="date" defaultValue={checkOut} name="checkOutInput" onChange={handleChange} />
                             </div>
-                            <button className="w-full my-4 text-black">Book</button>
+                            <button className="w-full my-4 text-black" onClick={sendBookingInfo}>Book</button>
                         </form>
                     </div>
                 </div>

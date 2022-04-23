@@ -9,13 +9,17 @@ function Properties(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [limit, setLimit] = useState(10);
     const initialCountry = searchParams.get("countryName");
+    const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
+    const [country, setCountry] = useState(initialCountry);
+    const [market, setMarket] = useState("All");
     const marketsData = {
         "Australia": ["All", "Sydney"],
         "Brazil": ["All", "Rio De Janeiro", "Barra de Guaratiba" ],
         "Canada": ["All", "Montreal"],
         "China": ["All"],
         "Hong Kong": ["All"],
-        "Portugal": ["Aveiro", "Porto"],
+        "Portugal": ["All", "Aveiro", "Porto"],
         "Spain": ["All", "Barcelona"],
         "Turkey": ["All", "Istanbul", "Sile"],
         "United States": [
@@ -41,21 +45,17 @@ function Properties(props) {
 
 
 
-    function handleChange(e) {
-        if (e.target.name === "countrySelect") {
-            const country = e.target.value;
-            setMarkets(marketsData[country]);
-            const marketSelect = document.querySelector('select[name="marketSelect"]');
-            marketSelect.value = "All";
-            fetchData(country)
-        }
-        if (e.target.name === "marketSelect") {
-            const market = e.target.value;
-            const countrySelect = document.querySelector('select[name="countrySelect"]');
-            const country = countrySelect.value;
-            fetchData(country, market);
-            
-        }
+    function handleChange() {
+        const countryValue = document.querySelector("#selectCountry").value;
+        const marketValue = document.querySelector("#selectMarket").value;
+        console.log(countryValue)
+        console.log(marketValue);
+        console.log(marketsData[countryValue]);
+        setCountry(countryValue);
+        setMarket(marketValue);
+        setMarkets(marketsData[countryValue]);
+        fetchData(countryValue, marketValue);
+        
 
     }
 
@@ -66,9 +66,15 @@ function Properties(props) {
         const formattedCountry = formatString(country);
         const formattedMarket  = formatString(market);
         let url = `/destinations?country=${formattedCountry}&market=${formattedMarket}`;
-        axios.get(url).then((res) => {
-            console.log(res.data);
-            setListings(res.data);
+        // axios.get(url).then((res) => {
+        //     console.log(res.data);
+        //     setListings(res.data);
+        //     setIsLoading(false);
+        // })
+        fetch(url)
+        .then(response => response.json())
+        .then((data) => {
+            setListings(data);
             setIsLoading(false);
         })
     }
@@ -79,7 +85,7 @@ function Properties(props) {
     }
 
     function SeeMore() {
-        if (listings.length <= limit) {
+        if (listings !== undefined && listings.length <= limit) {
             return <p>that's all the properties</p>
         } else {
             return <button className="text-black" onClick={() => setLimit(limit + 10)}>See more</button>
@@ -94,12 +100,13 @@ function Properties(props) {
                     <div className="text-center border">
                         <p className="py-4">Change Destination</p>
                     </div>
-                    <form className="w-full px-2" name="myForm">
+                    <form className="w-full px-2" name="myForm" id="theForm">
                         <div className="flex flex-col my-2">
                             <label>Country</label>
                             <select
+                                value={country}
+                                id="selectCountry"
                                 className="border rounded-md p-2"
-                                defaultValue={initialCountry}
                                 name="countrySelect"
                                 onChange={handleChange}
                             >
@@ -117,8 +124,9 @@ function Properties(props) {
                         <div className="flex flex-col my-2">
                             <label>City/Area</label>
                             <select
+                                value={market}
+                                id="selectMarket"
                                 className="border rounded-md p-2"
-                                defaultValue="All"
                                 name="marketSelect"
                                 onChange={handleChange}
                             >
@@ -136,6 +144,8 @@ function Properties(props) {
                         return ( <PropertyCard
                             key={index}
                             data={item}
+                            checkIn={checkIn}
+                            checkOut={checkOut}
                         />)
                         }
                     })
