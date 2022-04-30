@@ -28,8 +28,8 @@ function ReviewsBox(props) {
     return (
         <div className="flex items-center">
             <StarIcon className="h-5 w-5 text-red-500" />
-            <p className="">{getRating(props.rating)}</p>
-            <p className="pl-2">( {numberOfReviews} {(numberOfReviews === 1) ? "Review" : "Reviews"} )</p>
+            <span>{getRating(props.rating)}</span>
+            <span className="pl-2">( {numberOfReviews} {(numberOfReviews === 1) ? "Review" : "Reviews"} )</span>
         </div>
     )
 }

@@ -3,8 +3,11 @@ import { Link, useSearchParams } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
 import Header from '../components/Header';
 import axios from 'axios';
+import calculateNumberOfNights from '../utils/calculateNumberOfNights';
 
 function Properties(props) {
+
+    
     const [searchParams, setSearchParams] = useSearchParams();
     const [isLoading, setIsLoading] = useState(true);
     const [limit, setLimit] = useState(10);
@@ -34,6 +37,7 @@ function Properties(props) {
     }
     const [listings, setListings] = useState(undefined);
     const [markets, setMarkets] = useState(marketsData[initialCountry]);
+    const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
 
     useEffect(() => {
         axios.get(`/destinations?country=${initialCountry}&market=All`).then((res) => {
@@ -41,7 +45,6 @@ function Properties(props) {
             setIsLoading(false);
         });
     }, [])
-
 
 
 
@@ -146,6 +149,7 @@ function Properties(props) {
                             data={item}
                             checkIn={checkIn}
                             checkOut={checkOut}
+                            numberOfNights={numberOfNights}
                         />)
                         }
                     })

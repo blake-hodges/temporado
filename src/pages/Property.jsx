@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import data from '../assets/data.js';
 import ReviewsBox from '../components/ReviewsBox';
 import Amenities from '../components/Amenities';
+import currencyConverter from '../utils/currencyConverter';
 
 function Property() {
 
@@ -50,7 +51,8 @@ function Property() {
         <>
             <Header />
             <div className="md:w-[960px] my-4 p-10 mx-auto">
-                <h1 className="text-xl font-thin">{data.summary}</h1>
+                <h1>{data.name}</h1>
+                <p className="text-xl py-4">{data.summary}</p>
                 <div className="flex flex-row">
                     <ReviewsBox rating={data.review_scores_rating} totalReviews={data.reviews.length} />
                     <span className="px-2">·</span>
@@ -73,7 +75,7 @@ function Property() {
                     </div>
                     <div className="cols-span-1 border border-gray-200 rounded-lg p-6">
                         <div className="flex justify-between">
-                            <h2>$24 night</h2>
+                            <h2>${currencyConverter(data.price.$numberDecimal, data.address.country)} night</h2>
                             <ReviewsBox />
                         </div>
                         <form className="px-2">

@@ -38,7 +38,7 @@ function PropertyCard(props) {
                     />
                     <div>
                         <p className="font-bold">${currencyConverter(props.data.price.$numberDecimal, props.data.address.country)} / night</p>
-                        <p>${props.data.price.$numberDecimal * 5} total</p>
+                        <p>${currencyConverter(props.data.price.$numberDecimal, props.data.address.country) * props.numberOfNights} total</p>
                     </div>
                 </div>
             </div>
