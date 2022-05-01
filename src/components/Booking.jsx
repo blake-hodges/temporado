@@ -46,8 +46,8 @@ function Booking() {
                 </div>
             </div>
 
-            <div className="md:col-span-1 bg-blue-500">
-                <div className="text-center border">
+            <div className="md:col-span-1 bg-blue-500 rounded-md">
+                <div className="text-center border-b">
                     <p className="pt-2">Check our available properties.</p>
                     <p className="py-2 text-gray-200">10% OFF MONTH-LONG STAYS</p>
                 </div>
