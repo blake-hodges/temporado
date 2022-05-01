@@ -10,7 +10,7 @@ function Navbar() {
     return (
         <div className="w-full flex flex-col md:flex-row md:items-center absolute z-10 text-white h-20 px-4">
             <div className="hidden md:block">
-                <Logo />
+                <NavLink to="/"><Logo /></NavLink>
             </div>
             <div className="hidden md:flex pl-10">
                 <li className=""><NavLink to="/">Home</NavLink></li>
