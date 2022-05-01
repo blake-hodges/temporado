@@ -7,13 +7,19 @@ import calculateNumberOfNights from '../utils/calculateNumberOfNights';
 
 function Properties(props) {
 
-    
     const [searchParams, setSearchParams] = useSearchParams();
+    let initialCountry, checkIn, checkOut;
+    if (Object.keys(searchParams).length === 0) {
+        initialCountry = "Australia";
+        checkIn = "2022-01-01";
+        checkOut = "2022-01-02";
+    } else {
+        initialCountry = searchParams.get("countryName");
+        checkIn = searchParams.get("checkIn");
+        checkOut = searchParams.get("checkOut");
+    }
     const [isLoading, setIsLoading] = useState(true);
     const [limit, setLimit] = useState(10);
-    const initialCountry = searchParams.get("countryName");
-    const checkIn = searchParams.get("checkIn");
-    const checkOut = searchParams.get("checkOut");
     const [country, setCountry] = useState(initialCountry);
     const [market, setMarket] = useState("All");
     const marketsData = {
@@ -51,9 +57,6 @@ function Properties(props) {
     function handleChange() {
         const countryValue = document.querySelector("#selectCountry").value;
         const marketValue = document.querySelector("#selectMarket").value;
-        console.log(countryValue)
-        console.log(marketValue);
-        console.log(marketsData[countryValue]);
         setCountry(countryValue);
         setMarket(marketValue);
         setMarkets(marketsData[countryValue]);
@@ -97,7 +100,6 @@ function Properties(props) {
 
     return (
         <>
-            <Header />
             <div className="w-[960px] my-4 p-10 mx-auto">
                 <div className="w-[400px] mx-auto bg-blue-500 pb-4">
                     <div className="text-center border">

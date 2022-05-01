@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import {
     FaFacebook,
     FaTwitter,
@@ -13,10 +14,10 @@ const Footer = () => {
             <div className='max-w-[1240px] mx-auto flex flex-row justify-between px-4'>
                 <div className='flex justify-between'>
                     <ul className='text-left md:flex'>
-                        <li className="py-1 my-auto">Home</li>
-                        <li className="py-1 my-auto">Destinations</li>
-                        <li className="py-1 my-auto">Book a Trip</li>
-                        <li className="py-1 my-auto">Become a Host</li>
+                        <li className="py-1 my-auto"><NavLink to="/">Home</NavLink></li>
+                        <li className="py-1 my-auto"><NavLink to="/destinations">Destinations</NavLink></li>
+                        <li className="py-1 my-auto"><NavLink to="/properties">Properties</NavLink></li>
+                        <li className="py-1 my-auto"><NavLink to="/host">Become a Host</NavLink></li>
                     </ul>
                 </div>
                 <div className='sm:flex text-center justify-between items-center'>

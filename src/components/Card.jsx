@@ -1,5 +1,4 @@
 import React from 'react'
-import Maldives from '../assets/maldives.jpg';
 
 function Card({background, caption}) {
   return (

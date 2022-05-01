@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
 import Logo from './Logo';
 
@@ -12,20 +13,20 @@ function Navbar() {
                 <Logo />
             </div>
             <div className="hidden md:flex pl-10">
-                <li className="">Home</li>
-                <li className="">Destinations</li>
-                <li className="">Book a Trip</li>
-                <li className="">Become a Host</li>
+                <li className=""><NavLink to="/">Home</NavLink></li>
+                <li className=""><NavLink to="/destinations">Destinations</NavLink></li>
+                <li className=""><NavLink to="/properties">Properties</NavLink></li>
+                <li className=""><NavLink to="/host">Become a Host</NavLink></li>
             </div>
             <div className="md:hidden z-10" onClick={() => setMenuOpen(!menuOpen)}>
                 {!menuOpen ? <MenuIcon className="h-10 w-10" /> :  <XIcon className="h-10 w-10" />}
             </div>
             <div className={menuOpen ? "md:hidden w-screen bg-black absolute top-0 left-0" : "absolute left-[-100%]"}>
                 <ul className={`text-center w-full bg-slate-300`}>
-                    <li className="border-b">Home</li>
-                    <li className="border-b">Destinations</li>
-                    <li className="border-b">Book a Trip</li>
-                    <li className="border-b">Become a Host</li>
+                <li className="border-b"><NavLink to="/">Home</NavLink></li>
+                <li className="border-b"><NavLink to="/destinations">Destinations</NavLink></li>
+                <li className="border-b"><NavLink to="/properties">Properties</NavLink></li>
+                <li className="border-b"><NavLink to="/host">Become a Host</NavLink></li>
                 </ul>
             </div>
         </div>

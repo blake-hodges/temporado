@@ -1,8 +1,37 @@
 import React from 'react';
 import Card from './Card';
+import paris from '../assets/paris.jpg';
+import morocco from '../assets/morocco.jpg';
+import china from '../assets/china.jpg';
+import hokkaido from '../assets/hokkaido.jpg';
+import frenchPolynesia from '../assets/french-polynesia.jpg';
+
+const data = [
+    {
+        img: paris,
+        destination: "paris"
+    },
+    {
+        img: morocco,
+        destination: "morocco"
+    },
+    {
+        img: china,
+        destination: "china"
+    },
+    {
+        img: hokkaido,
+        destination: "hokkaido"
+    },
+    {
+        img: frenchPolynesia,
+        destination: "French Polynesia"
+    }
+
+]
 
 
-function CardsGallery({data}) {
+function CardsGallery() {
     const CardsList = data.map((item, index) => (
         <Card background={item.img} caption={item.destination} key={index} />
     ))

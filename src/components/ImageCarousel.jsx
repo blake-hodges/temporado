@@ -6,7 +6,16 @@ import china from '../assets/china.jpg';
 import hokkaido from '../assets/hokkaido.jpg';
 import frenchPolynesia from '../assets/french-polynesia.jpg';
 
-function ImageCarousel({data}) {
+const data = [
+    { img: paris },
+    { img: morocco },
+    { img: china },
+    { img: hokkaido },
+    { img: frenchPolynesia },
+
+]
+
+function ImageCarousel() {
     const images = data.map((item, index) => {
        return <img src={item.img} className="w-full rounded-md select-none" alt="/" />
     })

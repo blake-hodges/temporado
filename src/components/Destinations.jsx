@@ -7,7 +7,7 @@ import canada from "../assets/canada.jpg";
 import hongKong from "../assets/hongKong.jpg";
 
 
-function Destinations({data}) {
+function DestinationsComponent({data}) {
     
     return (
         <div>
@@ -44,7 +44,7 @@ function Destinations({data}) {
     )
 }
 
-export default Destinations
+export default DestinationsComponent
 
 
 {/* <div>

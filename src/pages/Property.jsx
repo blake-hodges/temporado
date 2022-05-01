@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import Header from '../components/Header';
 import data from '../assets/data.js';
 import ReviewsBox from '../components/ReviewsBox';
 import Amenities from '../components/Amenities';
@@ -49,7 +48,6 @@ function Property() {
 
     return (
         <>
-            <Header />
             <div className="md:w-[960px] my-4 p-10 mx-auto">
                 <h1>{data.name}</h1>
                 <p className="text-xl py-4">{data.summary}</p>
