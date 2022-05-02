@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Properties from './pages/Properties';
 import Property from './pages/Property';
 import Destinations from './pages/Destinations';
+import Contact from './pages/Contact';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/properties" element={<Properties />} />
                     <Route path="/property/:id" element={<Property />} />
                     <Route path="/host" element={<Host />} />
+                    <Route path="/contact" element={<Contact />} />
                 </Route>
             </Routes>
         </>

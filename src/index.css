@@ -8,10 +8,10 @@
         @apply text-3xl md:text-4xl font-jakarta
     }
     h2 {
-        @apply text-2xl font-jakarta
+        @apply text-lg md:text-2xl font-jakarta
     }
     h3 {
-        @apply text-xl font-jakarta
+        @apply text-base md:text-xl font-jakarta
     }
     h4 {
         @apply font-jakarta

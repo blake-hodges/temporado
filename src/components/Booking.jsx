@@ -25,22 +25,22 @@ function Booking() {
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 px-4 py-16">
             <div className="md:col-span-2 justify-evenly p-5">
                 <div>
-                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing.</h2>
-                    <p className="py-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor at eos mollitia, numquam consequuntur dolores temporibus laboriosam, vitae nemo aspernatur cum, magnam blanditiis facere facilis aliquid exercitationem harum incidunt praesentium. Quam fugit facilis quia molestias, consequatur aut dicta tempora magni asperiores, minus omnis expedita quis rerum fuga provident! Itaque, ex!</p>
+                    <h2>Let us help you find your next destination.</h2>
+                    <p className="py-4">Established in 2020, Temporado has developed from a small start-up to one of the world’s most popular holiday booking sites. We empower travelers from around the world as well as property property owners to find solutions that work for them. Wherever you need to go and anything you need to do, Temporado makes it simple and hassle-free.</p>
                 </div>
                 <div className="grid grid-cols-2">
                     <div className="flex flex-col text-center items-center">
-                    <PhoneIcon className="w-7 h-7" />
+                    <Link to="/contact"><PhoneIcon className="w-7 h-7" /></Link>
                         <div>
-                            <h3>Speak with Someone</h3>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas, quibusdam!</p>
+                            <h3><Link to="/contact">Contact Us</Link></h3>
+                            <p>Please contact us with any questions you have. We are available to respond 24/7. We will get back to you as soon as possible.</p>
                         </div>
                     </div>
                     <div className="flex flex-col text-center items-center">
                         <ChatIcon className="w-7 h-7" />
                         <div>
-                            <h3>Chat With Us</h3>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                            <h3>Customer Service</h3>
+                            <p>Confirm your booking information here. If you have a problem with your booking feel free to contact us.</p>
                         </div>
                     </div>
                 </div>
@@ -48,8 +48,8 @@ function Booking() {
 
             <div className="md:col-span-1 bg-blue-500 rounded-md">
                 <div className="text-center border-b">
-                    <p className="pt-2">Check our available properties.</p>
-                    <p className="py-2 text-gray-200">10% OFF MONTH-LONG STAYS</p>
+                    <h3 className="pt-2">Check our available properties.</h3>
+                    <h4 className="py-2 text-gray-200">10% OFF MONTH-LONG STAYS</h4>
                 </div>
                 <form className="w-full px-2">
                     <div className="flex flex-col my-2">

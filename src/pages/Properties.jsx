@@ -100,13 +100,11 @@ function Properties(props) {
 
     return (
         <>
-            <div className="w-[960px] my-4 p-10 mx-auto">
-                <div className="w-[400px] mx-auto bg-blue-500 pb-4">
-                    <div className="text-center border">
-                        <p className="py-4">Change Destination</p>
-                    </div>
-                    <form className="w-full px-2" name="myForm" id="theForm">
-                        <div className="flex flex-col my-2">
+            <div className="w-full max-w-[960px] my-4 p-10 mx-auto">
+                <div className="mx-auto pb-4">
+                    <h1 className="m">Property Search</h1>
+                    <form className="w-full grid grid-cols-2 gap-4 px-2" name="myForm" id="theForm">
+                        <div className="col-span-2 md:col-span-1 flex flex-col my-2">
                             <label>Country</label>
                             <select
                                 value={country}
@@ -126,7 +124,7 @@ function Properties(props) {
                                 <option value="United States">United States</option>
                             </select>
                         </div>
-                        <div className="flex flex-col my-2">
+                        <div className="col-span-2 md:col-span-1 flex flex-col my-2">
                             <label>City/Area</label>
                             <select
                                 value={market}
