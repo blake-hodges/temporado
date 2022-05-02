@@ -18,9 +18,11 @@ function Amenities(props) {
                 <span>{props.guests} {Number.parseInt(props.guests) === 1 ? "Guest" : "Guests"}</span>
             </div>
             <div>
-                {props.amenities.map((item, index) => (
-                    <span key={index}>{item} · </span>
-                ))}
+                <span>{props.amenities[0]} · </span>
+                <span>{props.amenities[1]} · </span>
+                <span>{props.amenities[2]} · </span>
+                <span>{props.amenities[3]} · </span>
+                <span>{props.amenities[4]}</span>
             </div>
         </div>
   )

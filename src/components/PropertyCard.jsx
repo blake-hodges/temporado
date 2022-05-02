@@ -6,13 +6,13 @@ import Amenities from '../components/Amenities';
 
 function PropertyCard(props) {
     return (
-        <div className="flex px-5 pb-4 my-4 border-b border-gray-300">
+        <div className="flex flex-col md:flex-row px-5 pb-4 my-4 border-b border-gray-300">
             <div className="mr-5">
-                <img src={props.data.images.picture_url} className="bg-black w-[300px] h-[200px] rounded-md" />
+                <img src={props.data.images.picture_url} className="bg-black md:w-[300px] md:h-[200px] rounded-md" />
             </div>
             <div className="flex flex-col w-full justify-between">
                 <div>
-                    <p>{ `${props.data.room_type} in ${props.data.address.market}` }</p>
+                    <h2>{ `${props.data.room_type} in ${props.data.address.market}` }</h2>
                     <Link to={`/property/${props.data._id}`} state={
                         {
                             data: props.data,
@@ -21,7 +21,7 @@ function PropertyCard(props) {
 
                         }
                     }>
-                        <h3 className="font-normal">{props.data.name}</h3>
+                        <span className="font-normal">{props.data.name}</span>
                     </Link>
                     <Amenities
                         beds={props.data.beds}
