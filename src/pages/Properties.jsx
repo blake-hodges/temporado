@@ -2,22 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
 import Header from '../components/Header';
-import axios from 'axios';
 import calculateNumberOfNights from '../utils/calculateNumberOfNights';
 
 function Properties(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     let initialCountry, checkIn, checkOut;
-    if (Object.keys(searchParams).length === 0) {
-        initialCountry = "Australia";
-        checkIn = "2022-01-01";
-        checkOut = "2022-01-02";
-    } else {
-        initialCountry = searchParams.get("countryName");
-        checkIn = searchParams.get("checkIn");
-        checkOut = searchParams.get("checkOut");
-    }
     const [isLoading, setIsLoading] = useState(true);
     const [limit, setLimit] = useState(10);
     const [country, setCountry] = useState(initialCountry);
@@ -46,10 +36,16 @@ function Properties(props) {
     const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
 
     useEffect(() => {
-        axios.get(`/destinations?country=${initialCountry}&market=All`).then((res) => {
-            setListings(res.data);
-            setIsLoading(false);
-        });
+        if (Object.keys(searchParams).length === 0) {
+            initialCountry = "Australia";
+            checkIn = "2022-01-01";
+            checkOut = "2022-01-02";
+        } else {
+            initialCountry = searchParams.get("countryName");
+            checkIn = searchParams.get("checkIn");
+            checkOut = searchParams.get("checkOut");
+        }
+        fetchData(initialCountry)
     }, [])
 
 
@@ -124,7 +120,7 @@ function Properties(props) {
                                 <option value="United States">United States</option>
                             </select>
                         </div>
-                        <div className="col-span-2 md:col-span-1 flex flex-col my-2">
+                        <div className="col-span-2 md:col-span-1 flex flex-col">
                             <label>City/Area</label>
                             <select
                                 value={market}
@@ -162,7 +158,7 @@ function Properties(props) {
 }
 
 function Loading() {
-    return <p>Loading...</p>
+    return <p className="text-center">Loading...</p>
 }
 
 

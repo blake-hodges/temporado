@@ -8,7 +8,7 @@ function PropertyCard(props) {
     return (
         <div className="flex flex-col md:flex-row px-5 pb-4 my-4 border-b border-gray-300">
             <div className="mr-5">
-                <img src={props.data.images.picture_url} className="bg-black md:w-[300px] md:h-[200px] rounded-md" />
+                <img src={props.data.images.picture_url} className="md:w-[300px] md:h-[200px] rounded-md" />
             </div>
             <div className="flex flex-col w-full justify-between">
                 <div>
@@ -21,7 +21,7 @@ function PropertyCard(props) {
 
                         }
                     }>
-                        <span className="font-normal">{props.data.name}</span>
+                        <span className="font-thin block mb-1">{props.data.name}</span>
                     </Link>
                     <Amenities
                         beds={props.data.beds}
@@ -37,8 +37,8 @@ function PropertyCard(props) {
                         totalReviews={props.data.reviews.length}
                     />
                     <div>
-                        <p className="font-bold">${currencyConverter(props.data.price.$numberDecimal, props.data.address.country)} / night</p>
-                        <p>${currencyConverter(props.data.price.$numberDecimal, props.data.address.country) * props.numberOfNights} total</p>
+                        <span className="font-bold block">${currencyConverter(props.data.price.$numberDecimal, props.data.address.country)} / night</span>
+                        <span>${currencyConverter(props.data.price.$numberDecimal, props.data.address.country) * props.numberOfNights} total</span>
                     </div>
                 </div>
             </div>
