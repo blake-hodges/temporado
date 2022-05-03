@@ -23,6 +23,12 @@ function Contact() {
         })
         
     }
+    function handleInvalid(e) {
+        e.target.setCustomValidity('Enter email ksajdksj here');
+    }
+    function handleInput(e) {
+        e.target.setCustomValidity("")
+    }
     return (
         <div className="w-[400px] mx-auto flex flex-col my-6">
             <div className="my-4">
@@ -35,7 +41,7 @@ function Contact() {
                             <input className="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none" type="text" placeholder="Name" name="contact-form-name" required />
                         </div>
                         <div className="col-span-2 md:col-span-1">
-                            <input className=" w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none" type="email" placeholder="Email" name="contact-form-email" required />
+                            <input className="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none" type="email" placeholder="Email" name="contact-form-email" required onInvalid={handleInvalid} onInput={handleInput} />
                         </div>
                     </div>
                     <div>
