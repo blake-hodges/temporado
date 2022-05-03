@@ -6,7 +6,32 @@ import calculateNumberOfNights from '../utils/calculateNumberOfNights';
 import marketsData from '../utils/marketsData';
 
 function Properties(props) {
-    const [country, setCountry] = useState("Australia");
+    const [searchParams, setSearchParams] = useSearchParams();
+    let initialCountry, checkIn, checkOut;
+    if (searchParams.get("countryName")) {
+        initialCountry = searchParams.get("countryName");
+    } else {
+        initialCountry = "Australia";
+    }   
+    if (searchParams.get("checkIn")) {
+        checkIn = searchParams.get("checkIn");
+    } else {
+        const today = new Date();
+        const todayDateString = today.toISOString().slice(0,10);
+        checkIn = todayDateString;
+    }
+    if (searchParams.get("checkOut")) {
+        checkOut = searchParams.get("checkOut");
+    } else {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowDateString = tomorrow.toISOString().slice(0,10);
+        checkOut = tomorrowDateString;
+    }
+    const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
+
+    const [country, setCountry] = useState(initialCountry);
     const [market, setMarket] = useState("All");
     const [marketList, setMarketList] = useState(marketsData[country]);
     const [listings, setListings] = useState(undefined);
@@ -16,7 +41,7 @@ function Properties(props) {
     // const [listings, setListings] = useState(undefined);
     
     useEffect(() => {
-        let url = `/destinations?country=Australia&market=All`;
+        let url = `/destinations?country=${initialCountry}&market=All`;
         fetch(url)
         .then(response => response.json())
         .then((data) => {
@@ -27,9 +52,6 @@ function Properties(props) {
     }, [])
 
 
-    // const [limit, setLimit] = useState(10);
-    // const [listings, setListings] = useState(undefined);
-    // const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
     
     // const [searchParams, setSearchParams] = useSearchParams();
     // let initialCountry = searchParams.get("countryName");
@@ -75,13 +97,7 @@ function Properties(props) {
         return formattedStr;
     }
 
-    // function SeeMore() {
-    //     if (listings !== undefined && listings.length <= limit) {
-    //         return null
-    //     } else {
-    //         return <button className="text-black" onClick={() => setLimit(limit + 10)}>See more</button>
-    //     }
-    // }
+
 
     return (
         <>
@@ -95,7 +111,7 @@ function Properties(props) {
                 <div className="my-10">
                     { !isLoading ? listings.map((item, index) => {
                         if (index <= limit) {
-                        return <PropertyCard key={index} data={item}/>
+                        return <PropertyCard key={index} data={item} checkIn={checkIn} checkOut={checkOut} numberOfNights={numberOfNights}/>
                         }
                     })
                         : <p className="text-center">Loading...</p>}
