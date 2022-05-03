@@ -8,11 +8,14 @@ import currencyConverter from '../utils/currencyConverter';
 
 function Property() {
 
+
     const location = useLocation();
-    const { data, checkIn, checkOut } = location.state;
+    const { data, checkIn, checkOut, rating, numberOfReviews } = location.state;
     console.log(checkIn, checkOut);
     const [ checkInDate, setCheckInDate ] = useState(checkIn);
     const [ checkOutDate, setCheckOutDate ] = useState(checkOut);
+
+    console.log(data);
 
 
     function convertDate(date) {
@@ -48,19 +51,19 @@ function Property() {
 
     return (
         <>
-            <div className="md:w-[960px] my-4 p-10 mx-auto">
+            <div className="lg:w-[960px] my-4 p-10 mx-auto">
                 <h1>{data.name}</h1>
                 <p className="text-xl py-4">{data.summary}</p>
                 <div className="flex flex-row">
-                    <ReviewsBox rating={data.review_scores_rating} totalReviews={data.reviews.length} />
+                    <ReviewsBox rating={rating} numberOfReviews={numberOfReviews} />
                     <span className="px-2">·</span>
                     <p>{data.address.suburb ? `${data.address.suburb}, ` : null} {data.address.market}, {data.address.country}</p>
                 </div>
                 <div className="py-4">
                     <img className="rounded-md w-full" src={data.images.picture_url} alt="property" />
                 </div>
-                <div className="py-4 grid gap-4 grid-cols-2 border-b border-gray-300">
-                    <div className="col-span-1">
+                <div className="py-4 grid gap-4 md:grid-cols-2 border-b border-gray-300">
+                    <div className="md:col-span-1">
                         <h3>{data.name}</h3>
                         <p>{data.room_type}</p>
                         <Amenities
@@ -71,10 +74,10 @@ function Property() {
                                 guests={data.guests_included.$numberDecimal}
                             />
                     </div>
-                    <div className="cols-span-1 border border-gray-200 rounded-lg p-6">
+                    <div className="w-full cols-span-2 md:cols-span-1 border border-gray-200 rounded-lg p-2 md:p-6">
                         <div className="flex justify-between">
                             <h2>${currencyConverter(data.price.$numberDecimal, data.address.country)} night</h2>
-                            <ReviewsBox />
+                            <ReviewsBox rating={rating} numberOfReviews={numberOfReviews} />
                         </div>
                         <form className="px-2">
                             <div className="flex flex-col my-4">
@@ -85,7 +88,7 @@ function Property() {
                                 <label>Check-Out</label>
                                 <input className="p-2 border rounded-md" type="date" defaultValue={checkOut} name="checkOutInput" onChange={handleChange} />
                             </div>
-                            <button className="w-full my-4 text-black" onClick={sendBookingInfo}>Book</button>
+                            <button className="w-full my-4 bg-blue-500 text-white" onClick={sendBookingInfo}>Book</button>
                         </form>
                     </div>
                 </div>
@@ -98,10 +101,10 @@ function Property() {
                 </div>
                 <div className="py-4 border-t border-gray-300  grid grid-cols-2 gap-7">
                     <div className="col-span-2">
-                        <ReviewsBox />
+                    <ReviewsBox rating={rating} numberOfReviews={numberOfReviews} />
                     </div>
                     {data.reviews.map((item, index) => (
-                        <div key={index}>
+                        <div key={index} className="col-span-2 md:col-span-1">
                             <div className="py-2">
                                 <h4 className="text-lg">{item.reviewer_name}</h4>
                                 <span className="text-sm text-gray-500">{convertDate(item.date)}</span>

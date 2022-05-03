@@ -1,98 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
-import Header from '../components/Header';
 import calculateNumberOfNights from '../utils/calculateNumberOfNights';
+import marketsData from '../utils/marketsData';
 
 function Properties(props) {
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    let initialCountry, checkIn, checkOut;
+    
     const [isLoading, setIsLoading] = useState(true);
-    const [limit, setLimit] = useState(10);
-    const [country, setCountry] = useState(initialCountry);
+    const [country, setCountry] = useState("Australia");
     const [market, setMarket] = useState("All");
-    const marketsData = {
-        "Australia": ["All", "Sydney"],
-        "Brazil": ["All", "Rio De Janeiro", "Barra de Guaratiba" ],
-        "Canada": ["All", "Montreal"],
-        "China": ["All"],
-        "Hong Kong": ["All"],
-        "Portugal": ["All", "Aveiro", "Porto"],
-        "Spain": ["All", "Barcelona"],
-        "Turkey": ["All", "Istanbul", "Sile"],
-        "United States": [
-            "All",
-            "Kauai",
-            "Maui",
-            "Molokai",
-            "New York",
-            "Oahu",
-            "The Big Island"
-          ]
-    }
+    const [markets, setMarkets] = useState(marketsData[country]);
     const [listings, setListings] = useState(undefined);
-    const [markets, setMarkets] = useState(marketsData[initialCountry]);
-    const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
-
+    
     useEffect(() => {
-        if (Object.keys(searchParams).length === 0) {
-            initialCountry = "Australia";
-            checkIn = "2022-01-01";
-            checkOut = "2022-01-02";
-        } else {
-            initialCountry = searchParams.get("countryName");
-            checkIn = searchParams.get("checkIn");
-            checkOut = searchParams.get("checkOut");
-        }
-        fetchData(initialCountry)
-    }, [])
-
-
-
-    function handleChange() {
-        const countryValue = document.querySelector("#selectCountry").value;
-        const marketValue = document.querySelector("#selectMarket").value;
-        setCountry(countryValue);
-        setMarket(marketValue);
-        setMarkets(marketsData[countryValue]);
-        fetchData(countryValue, marketValue);
-        
-
-    }
-
-
-    function fetchData(country, market = "All") {
-        setIsLoading(true);
-        setLimit(10);
-        const formattedCountry = formatString(country);
-        const formattedMarket  = formatString(market);
-        let url = `/destinations?country=${formattedCountry}&market=${formattedMarket}`;
-        // axios.get(url).then((res) => {
-        //     console.log(res.data);
-        //     setListings(res.data);
-        //     setIsLoading(false);
-        // })
+        console.log("use effect happened");
+        let url = `/destinations?country=Australia&market=All`;
         fetch(url)
         .then(response => response.json())
         .then((data) => {
+            console.log(data);
             setListings(data);
             setIsLoading(false);
         })
-    }
+    }, [])
 
-    function formatString(str) {
-        let formattedStr = str.replace(" ", "%20");
-        return formattedStr;
-    }
+    // const [limit, setLimit] = useState(10);
+    // const [listings, setListings] = useState(undefined);
+    // const numberOfNights = calculateNumberOfNights(checkIn, checkOut);
+    
+    // const [searchParams, setSearchParams] = useSearchParams();
+    // let initialCountry = searchParams.get("countryName");
+    // let checkIn = searchParams.get("checkIn");
+    // let checkOut = searchParams.get("checkOut");
 
-    function SeeMore() {
-        if (listings !== undefined && listings.length <= limit) {
-            return <p>that's all the properties</p>
-        } else {
-            return <button className="text-black" onClick={() => setLimit(limit + 10)}>See more</button>
-        }
-    }
+
+    //console.log(initialCountry, checkIn, checkOut);
+
+
+    // function fetchData(country, market = "All") {
+    //     setIsLoading(true);
+    //     setLimit(10);
+    //     const formattedCountry = formatString(country);
+    //     const formattedMarket  = formatString(market);
+    //     let url = `/destinations?country=${formattedCountry}&market=${formattedMarket}`;
+    //     fetch(url)
+    //     .then(response => response.json())
+    //     .then((data) => {
+    //         console.log(data);
+    //         setListings(data);
+    //         setIsLoading(false);
+    //     })
+    // }
+
+
+    // function handleChange() {
+    //     const countryValue = document.querySelector("#selectCountry").value;
+    //     const marketValue = document.querySelector("#selectMarket").value;
+    //     setCountry(countryValue);
+    //     setMarket(marketValue);
+    //     setMarkets(marketsData[countryValue]);
+    //     fetchData(countryValue, marketValue);
+        
+
+    // }
+
+
+
+    // function formatString(str) {
+    //     let formattedStr = str.replace(" ", "%20");
+    //     return formattedStr;
+    // }
+
+    // function SeeMore() {
+    //     if (listings !== undefined && listings.length <= limit) {
+    //         return null
+    //     } else {
+    //         return <button className="text-black" onClick={() => setLimit(limit + 10)}>See more</button>
+    //     }
+    // }
 
     return (
         <>
@@ -100,14 +85,13 @@ function Properties(props) {
                 <div className="mx-auto pb-4">
                     <h1 className="m">Property Search</h1>
                     <form className="w-full grid grid-cols-2 gap-4 px-2" name="myForm" id="theForm">
-                        <div className="col-span-2 md:col-span-1 flex flex-col my-2">
+                        <div className="col-span-2 md:col-span-1 flex flex-col my-0 md:my-2">
                             <label>Country</label>
                             <select
                                 value={country}
                                 id="selectCountry"
-                                className="border rounded-md p-2"
+                                className="border rounded-md p-2 focus:outline-none"
                                 name="countrySelect"
-                                onChange={handleChange}
                             >
                                 <option value="Australia">Australia</option>
                                 <option value="Brazil">Brazil</option>
@@ -120,14 +104,13 @@ function Properties(props) {
                                 <option value="United States">United States</option>
                             </select>
                         </div>
-                        <div className="col-span-2 md:col-span-1 flex flex-col">
+                        <div className="col-span-2 md:col-span-1 flex flex-col my-0 md:my-2">
                             <label>City/Area</label>
                             <select
                                 value={market}
                                 id="selectMarket"
-                                className="border rounded-md p-2"
+                                className="border rounded-md p-2 focus:outline-none"
                                 name="marketSelect"
-                                onChange={handleChange}
                             >
                                 {markets.map((item, index) => {
                                     return <option value={item} key={index}>{item}</option>
@@ -139,28 +122,16 @@ function Properties(props) {
                 </div>
                 <div className="my-10">
                     { !isLoading ? listings.map((item, index) => {
-                        if (index < limit) {
-                        return ( <PropertyCard
-                            key={index}
-                            data={item}
-                            checkIn={checkIn}
-                            checkOut={checkOut}
-                            numberOfNights={numberOfNights}
-                        />)
-                        }
+                        return <PropertyCard key={index} data={item}/>
                     })
-                        : <Loading />}
+                        : <p className="text-center">Loading...</p>}
                 </div>
-                <SeeMore />
             </div>
         </>
     )
 }
 
-function Loading() {
-    return <p className="text-center">Loading...</p>
-}
 
 
 
-export default Properties
+export default Properties;

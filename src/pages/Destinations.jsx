@@ -6,9 +6,8 @@ import ImageCarousel from '../components/ImageCarousel';
 function Destinations() {
     return (
         <>
-        <ImageCarousel />
         <CardsGallery />
-        <DestinationsComponent />
+        <ImageCarousel />
         </>
     )
 }

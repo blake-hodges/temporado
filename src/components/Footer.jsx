@@ -16,7 +16,7 @@ const Footer = () => {
                     <li className="py-1 my-auto"><NavLink to="/">Home</NavLink></li>
                     <li className="py-1 my-auto"><NavLink to="/destinations">Destinations</NavLink></li>
                     <li className="py-1 my-auto"><NavLink to="/properties">Properties</NavLink></li>
-                    <li className="py-1 my-auto"><NavLink to="/host">Become a Host</NavLink></li>
+                    <li className="py-1 my-auto"><NavLink to="/contact">Contact Us</NavLink></li>
                 </ul>
                 <div className='p-2 flex justify-center'>
                     <a href="https://facebook.com/mustdotravels" target="_blank" className="p-2">

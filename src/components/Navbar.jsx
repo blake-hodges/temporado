@@ -16,17 +16,17 @@ function Navbar() {
                 <li className=""><NavLink to="/">Home</NavLink></li>
                 <li className=""><NavLink to="/destinations">Destinations</NavLink></li>
                 <li className=""><NavLink to="/properties">Properties</NavLink></li>
-                <li className=""><NavLink to="/host">Become a Host</NavLink></li>
+                <li className=""><NavLink to="/contact">Contact Us</NavLink></li>
             </div>
-            <div className="md:hidden z-10 h-10 w-10 cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
-                {!menuOpen ? <MenuIcon className="h-10 w-10" /> :  <XIcon className="h-10 w-10" />}
+            <div className="md:hidden z-10 h-10 w-10 cursor-pointer mt-2" onClick={() => setMenuOpen(!menuOpen)}>
+                {!menuOpen ? <MenuIcon className="" /> :  <XIcon className="" />}
             </div>
             <div className={menuOpen ? "md:hidden w-screen bg-black absolute top-0 left-0" : "absolute left-[-100%]"}>
                 <ul className={`text-center w-full bg-slate-300`}>
                 <NavLink to="/"><li className="border-b">Home</li></NavLink>
                 <NavLink to="/destinations"><li className="border-b">Destinations</li></NavLink>
                 <NavLink to="/properties"><li className="border-b">Properties</li></NavLink>
-                <NavLink to="/host"><li className="border-b">Become a Host</li></NavLink>
+                <NavLink to="/contact"><li className="border-b">Contact Us</li></NavLink>
                 </ul>
             </div>
         </div>

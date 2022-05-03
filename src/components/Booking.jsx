@@ -28,7 +28,7 @@ function Booking() {
                     <h2>Let us help you find your next destination.</h2>
                     <p className="py-4">Established in 2020, Temporado has developed from a small start-up to one of the world’s most popular holiday booking sites. We empower travelers from around the world as well as property property owners to find solutions that work for them. Wherever you need to go and anything you need to do, Temporado makes it simple and hassle-free.</p>
                 </div>
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col text-center items-center">
                     <Link to="/contact"><PhoneIcon className="w-7 h-7" /></Link>
                         <div>
@@ -48,7 +48,7 @@ function Booking() {
 
             <div className="md:col-span-1 bg-blue-500 rounded-md">
                 <div className="text-center border-b">
-                    <h3 className="pt-2">Check our available properties.</h3>
+                    <h3 className="pt-2 px-1">Check available properties.</h3>
                     <h4 className="py-2 text-gray-200">10% OFF MONTH-LONG STAYS</h4>
                 </div>
                 <form className="w-full px-2">

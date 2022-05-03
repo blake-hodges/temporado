@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/solid';
-import paris from '../assets/paris.jpg';
-import morocco from '../assets/morocco.jpg';
+import keyWest from '../assets/keyWest.jpg';
+import canada from '../assets/canada.jpg';
 import china from '../assets/china.jpg';
-import hokkaido from '../assets/hokkaido.jpg';
-import frenchPolynesia from '../assets/french-polynesia.jpg';
+import brazil from '../assets/brazil.jpg';
+import australia from '../assets/australia.jpg';
+import hongKong from '../assets/hongKong.jpg';
 
 const data = [
-    { img: paris },
-    { img: morocco },
-    { img: china },
-    { img: hokkaido },
-    { img: frenchPolynesia },
+    { img: keyWest, country: "United States" },
+    { img: canada, country: "Canada" },
+    { img: china, country: "China" },
+    { img: brazil, country: "Brazil" },
+    { img: australia, country: "Australia" },
+    { img: hongKong, country: "Hong Kong" }
 
 ]
 
 function ImageCarousel() {
     const images = data.map((item, index) => {
-       return <img src={item.img} className="w-full rounded-md select-none" alt="/" />
+        return (
+            <div>
+                <Link to={`/properties/?country=${item.country}&market=All`}>
+                    <img src={item.img} className="w-full rounded-md select-none" alt={item.country} />
+                </Link>
+                <div className="relative">
+                    <h3 className="text-white absolute bottom-3 left-3">{item.country}</h3>
+                </div>
+            </div>
+        )
     })
     console.log(images)
     const [currentImage, setCurrentImage] = useState(0);
@@ -40,7 +52,7 @@ function ImageCarousel() {
             </div>
 
         </div>
-  )
+    )
 }
 
 export default ImageCarousel

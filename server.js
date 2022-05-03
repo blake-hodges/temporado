@@ -28,7 +28,7 @@ MongoClient.connect(url)
         } else {
             query = { "address.country" : country, "address.market" : market }
         }
-        db.collection("listingsAndReviews").find(query).limit(100).toArray()
+        db.collection("listingsAndReviews").find(query).limit(20).toArray()
             .then(results => {
                 res.json(results);
             })  
@@ -44,6 +44,18 @@ MongoClient.connect(url)
     app.post("/book", (req, res) => {
         console.log(req.body);
         db.collection("bookings").insertOne(req.body)
+        .then(result => {
+                console.log(result);
+                res.send("great success")
+        })
+        .catch(error => {
+            console.error(error)
+            res.send("server error");
+        })
+    });
+    app.post("/contact-form", (req, res) => {
+        console.log(req.body);
+        db.collection("contact").insertOne(req.body)
         .then(result => {
                 console.log(result);
                 res.send("great success")
