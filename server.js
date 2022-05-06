@@ -1,14 +1,19 @@
 const express = require("express");
+require('dotenv').config();
 const bodyParser = require("body-parser");
 const { MongoClient, ConnectionClosedEvent } = require('mongodb');
 const dbFile = require("./db.json");
+
+const dbUser = process.env.MONGODB_USER;
+const dbPassword = process.env.MONGODB_PW;
+
 
 const app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const url = 'mongodb+srv://tbhodges:i4XlRfTEjl9hayD7@cluster0.0fhve.mongodb.net/sample_airbnb?retryWrites=true&w=majority';
+const url = `mongodb+srv://${dbUser}:${dbPassword}@cluster0.0fhve.mongodb.net/sample_airbnb?retryWrites=true&w=majority`;
 
 
 MongoClient.connect(url)

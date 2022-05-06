@@ -5,18 +5,22 @@ import data from '../assets/data.js';
 import ReviewsBox from '../components/ReviewsBox';
 import Amenities from '../components/Amenities';
 import currencyConverter from '../utils/currencyConverter';
+import calculateNumberOfNights from '../utils/calculateNumberOfNights';
 
 function Property() {
 
 
     const location = useLocation();
     const { data, checkIn, checkOut, rating, numberOfReviews } = location.state;
-    console.log(checkIn, checkOut);
     const [ checkInDate, setCheckInDate ] = useState(checkIn);
     const [ checkOutDate, setCheckOutDate ] = useState(checkOut);
+    const [ nights, setNights ] = useState(getNumberOfNights(checkInDate, checkOutDate));
+    const [ price, setPrice ] = useState(currencyConverter(data.price.$numberDecimal, data.address.country));
 
-    console.log(data);
+    function getNumberOfNights(checkIn, checkOut) {
+        calculateNumberOfNights(checkIn, checkOut);
 
+    }
 
     function convertDate(date) {
         let dateString = new Date(date);
@@ -24,12 +28,13 @@ function Property() {
     }
 
     function handleChange(e) {
-        console.log(e.target.name);
         if (e.target.name === "checkInInput") {
             setCheckInDate(e.target.value);
         } else if (e.target.name === "checkOutInput") {
             setCheckOutDate(e.target.value);
         }
+        console.log('ksjd');
+        setNights(calculateNumberOfNights(checkInDate, checkOutDate));
 
     }
 
@@ -76,7 +81,10 @@ function Property() {
                     </div>
                     <div className="w-full cols-span-2 md:cols-span-1 border border-gray-200 rounded-lg p-2 md:p-6">
                         <div className="flex justify-between">
-                            <h2>${currencyConverter(data.price.$numberDecimal, data.address.country)} night</h2>
+                            <div className="flex">
+                                <h2>${price} night</h2>
+                                <p className="px-2 pt-[3px]">${nights} Total</p>
+                            </div>
                             <ReviewsBox rating={rating} numberOfReviews={numberOfReviews} />
                         </div>
                         <form className="px-2">
