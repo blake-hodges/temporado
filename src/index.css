@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    h1 {
+        @apply text-3xl md:text-4xl font-jakarta
+    }
+    h2 {
+        @apply text-lg md:text-2xl font-jakarta
+    }
+    h3 {
+        @apply text-base md:text-xl font-jakarta
+    }
+    h4 {
+        @apply font-jakarta
+    }
+    h5 {
+        @apply font-jakarta
+    }
+    h6 {
+        @apply font-jakarta
+    }
+    p {
+        @apply font-lato
+    }
+    li {
+        @apply p-4 list-none
+    }
+
+    button {
+        @apply p-3 border bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-light)] text-white rounded-md
+    }
+    .icon {
+        @apply text-2xl cursor-pointer
+    }
+}
